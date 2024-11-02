@@ -1,0 +1,141 @@
+/* app imports */
+@import "../../common/css/variables.scss";
+@import "../../common/css/mixins.scss";
+
+.chartParent {
+  margin: 100px auto -100px;
+  overflow: auto;
+  padding: 50px 20px;
+  display: grid;
+  &:last-child {
+    margin-bottom: 100px;
+  }
+  .gridLineParent {
+    grid-column: 1/-1;
+    grid-row: 1/-1;
+    display: grid;
+  }
+}
+.chartParent.vertical {
+  grid-template-rows: repeat(100, minmax(5px, 1fr)) 20px;
+  grid-template-columns: repeat(10, minmax(25px, 1fr));
+  grid-column-gap: 5px;
+  .gridLineParent.horizontal {
+    grid-template-rows: repeat(10, 50px);
+    margin-top: -5px;
+    .cell {
+      border: 1px solid #ddd;
+      border-left: 0;
+      border-right: 0;
+    }
+  }
+  .bar {
+    grid-column: var(--col_start)/var(--col_end);
+    grid-row: var(--row_start)/-2;
+    border-radius: 5px;
+    &.even {
+      background: #8360c3;  /* fallback for old browsers */
+      background: -webkit-linear-gradient(to right, #2ebf91, #8360c3);  /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to top, #2ebf91, #8360c3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+    &.odd {
+      background: #f7ff00;  /* fallback for old browsers */
+      background: -webkit-linear-gradient(to right, #db36a4, #f7ff00);  /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to top, #db36a4, #f7ff00); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+  }
+  .year {
+    font-size: 0.6rem;
+    padding: 12px 0;
+    background: $white;
+    transform: translateY(-20px);
+    grid-column: var(--col_start)/var(--col-end);
+  }
+  .value {
+    display: none;
+    font-size: 0.6rem;
+    position: absolute;
+    left: -20px;
+    top: -10px;
+    grid-row: var(--row_start);
+    width: 25px;
+    text-align: right;
+  }
+}
+.chartParent.horizontal {
+  grid-template-columns: 20px repeat(100, minmax(5px, 1fr));
+  grid-template-rows: repeat(10, minmax(25px, 1fr));
+  grid-row-gap: 15px;
+  .gridLineParent.vertical {
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+    margin-top: -5px;
+    .cell {
+      border: 1px dashed #ddd;
+      border-top: 0;
+      border-bottom: 0;
+    }
+  }
+  .bar {
+    border-radius: 5px;
+    grid-column: 2/var(--col_end);
+    grid-row: var(--row_start)/var(--row_end);
+    &.even {
+      background: #348F50;  /* fallback for old browsers */
+      background: -webkit-linear-gradient(to right, #56B4D3, #348F50);  /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to right, #56B4D3, #348F50); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+    &.odd {
+      background: #8A2387;  /* fallback for old browsers */
+      background: -webkit-linear-gradient(to right, #F27121, #E94057, #8A2387);  /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to right, #F27121, #E94057, #8A2387); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+  }
+  .value {
+    font-size: 0.6rem;
+    grid-column: var(--col_pos);
+  }
+  .year {
+    display: none;
+    font-size: 0.6rem;
+    grid-row: var(--row_start)/var(--row_end);
+    line-height: 45px;
+    position: absolute;
+    left: -15px;
+    top: -2px;
+    background: $white;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .chartParent {
+    overflow: unset;
+    max-width: 700px !important;
+  }
+  .chartParent.vertical {
+    .bar {
+      width: 70%;
+      max-width: 55px;
+      margin: 0 auto;
+    }
+    .value {
+      display: block;
+    }
+  }
+  .chartParent.horizontal {
+    .bar {
+      height: 45px;
+    }
+    .year {
+      display: block;
+    }
+  }
+}
+@media only screen and (min-width: 992px) {
+  .chartParent {
+    max-width: 900px !important;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .chartParent {
+    max-width: 1200px !important;
+  }
+}
